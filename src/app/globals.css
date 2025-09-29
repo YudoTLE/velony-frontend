@@ -84,3 +84,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Remove autofill effect */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  -webkit-text-fill-color: oklch(0.985 0 0) !important;
+  color: oklch(0.985 0 0) !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Force override any autofill styling */
+input:-webkit-autofill::first-line {
+  color: oklch(0.985 0 0) !important;
+}

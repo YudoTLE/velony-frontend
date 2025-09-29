@@ -500,7 +500,7 @@ export function RegisterForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className="rounded-2xl w-full max-w-sm min-h-[600px] flex flex-col">
+      <Card className="rounded-2xl w-full max-w-md min-h-[600px] flex flex-col">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">
             {STEPS.find((step) => step.id === currentStep)?.title}
