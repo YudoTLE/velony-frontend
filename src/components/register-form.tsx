@@ -350,7 +350,17 @@ export function RegisterForm({
 
               {isEmailSent && !isEmailVerified && (
                 <div className="grid gap-3">
-                  <Label htmlFor="otp">Input OTP</Label>
+                  <div className="text-center space-y-2">
+                    <p className="text-sm text-muted-foreground">
+                      We&apos;ve sent a 6-digit code to{' '}
+                      <span className="font-medium text-foreground">
+                        {formData.email}
+                      </span>
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Enter the code below to continue
+                    </p>
+                  </div>
                   <InputOTP
                     maxLength={6}
                     value={emailCode}
@@ -359,20 +369,33 @@ export function RegisterForm({
                       if (val.length === 6) verifyEmailCode();
                     }}
                     disabled={emailVerifying || isEmailVerified}
-                    containerClassName="gap-2"
+                    containerClassName="flex w-full justify-between gap-2"
                   >
-                    <InputOTPGroup>
+                    <InputOTPGroup className="flex-1 justify-between">
                       {[0, 1, 2].map((i) => (
-                        <InputOTPSlot key={i} index={i} />
+                        <InputOTPSlot
+                          key={i}
+                          index={i}
+                          className="flex-1 aspect-square h-auto w-auto"
+                        />
                       ))}
                     </InputOTPGroup>
                     <InputOTPSeparator />
-                    <InputOTPGroup>
+                    <InputOTPGroup className="flex-1 justify-between">
                       {[3, 4, 5].map((i) => (
-                        <InputOTPSlot key={i} index={i} />
+                        <InputOTPSlot
+                          key={i}
+                          index={i}
+                          className="flex-1 aspect-square h-auto w-auto"
+                        />
                       ))}
                     </InputOTPGroup>
                   </InputOTP>
+                  {emailVerifying && (
+                    <p className="text-sm text-muted-foreground text-center">
+                      Verifying code...
+                    </p>
+                  )}
                 </div>
               )}
             </form>
