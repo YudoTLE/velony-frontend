@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { RegisterForm } from '@/components/forms/sign-up-form';
+import { SignUpForm } from '@/features/auth/components/sign-up-form';
 
 export default function SignUpPage() {
   return (
@@ -11,7 +11,7 @@ export default function SignUpPage() {
           <sub className="text-muted-foreground">Create a new account</sub>
         </div>
 
-        <RegisterForm />
+        <SignUpForm />
 
         <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
           By clicking continue, you agree to our{' '}

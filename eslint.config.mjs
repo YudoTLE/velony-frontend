@@ -61,6 +61,10 @@ export default [
             ['parent', 'sibling', 'index'],
           ],
           'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',   // or 'desc'
+            caseInsensitive: true,
+          },
         },
       ],
       'import/no-unresolved': 'off',

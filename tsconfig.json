@@ -18,8 +18,20 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@shared/*": ["src/shared/*"],
+      "@auth/*": ["src/features/auth/*"],
+      "@auth": ["src/features/auth/index.ts"],
+      "@user/*": ["src/features/user/*"],
+      "@user": ["src/features/user/index.ts"],
+      "@conversation/*": ["src/features/conversation/*"],
+      "@conversation": ["src/features/conversation/index.ts"],
+      "@message/*": ["src/features/message/*"],
+      "@message": ["src/features/message/index.ts"],
+      "@sidebar/*": ["src/features/sidebar/*"],
     }
   },
   "include": [

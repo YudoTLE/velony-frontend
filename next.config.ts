@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // TODO: configure webpack aliases if needed
 };
 
 export default nextConfig;
