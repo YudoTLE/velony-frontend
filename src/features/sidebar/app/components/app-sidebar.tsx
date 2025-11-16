@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import { Sidebar } from '@shared/components/ui/sidebar';
+import React from 'react';
 
 import { AppSidebarNav } from './app-sidebar-nav';
 import { AppSidebarNavLogo } from './app-sidebar-nav-logo';

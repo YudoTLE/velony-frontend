@@ -1,12 +1,12 @@
+import { ConversationSidebar } from '@conversation-sidebar';
 import { UserIconSelf } from '@shared/components/icon/user-icon';
 import { Conversation } from '@shared/schemas/conversation.schema';
 import { Message } from '@shared/schemas/message.schema';
-import { MessageSquareMore, Bot, Cpu, Settings } from 'lucide-react';
+import { MessageSquareMore, Bot, Cpu } from 'lucide-react';
 
 import { ProfileSidebar } from '../../../profile-sidebar/components/profile-sidebar';
 
 import { SidebarItem } from '@/features/sidebar/app/types/sidebar-item';
-import { ConversationSidebar } from '@/features/sidebar/conversation/components/conversation-sidebar';
 
 // Mock data - move this to appropriate data fetching layer later
 const message: Message = {

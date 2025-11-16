@@ -1,9 +1,14 @@
 'use client';
 
-import { Avatar, AvatarImage, AvatarFallback } from '@shared/components/ui/avatar';
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from '@shared/components/ui/avatar';
 import { Skeleton } from '@shared/components/ui/skeleton';
-import { useUsersMeQuery } from '@/features/user/queries/use-users-me-query';
 import { cn } from '@shared/lib/utils';
+
+import { useUsersMeQuery } from '@/features/user/queries/use-users-me-query';
 
 interface UserIconSelfProps {
   className?: string;
