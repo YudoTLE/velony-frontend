@@ -11,7 +11,10 @@ export const useSignInForm = () => {
   const router = useRouter();
   const [isSubmitTransitioning, startSubmitTransition] = useTransition();
 
-  const form = useForm({ resolver: zodResolver(signInRequestSchema) });
+  const form = useForm({
+    resolver: zodResolver(signInRequestSchema),
+    defaultValues: signInRequestSchema.parse({}),
+  });
 
   const signIn = useSignInMutation();
 
@@ -23,17 +26,7 @@ export const useSignInForm = () => {
     } catch (err) {
       const error = errorSchema.parse(err);
 
-      if (error.status === 401) {
-        form.setError('root', {
-          type: 'manual',
-          message: 'Invalid username or password',
-        });
-      } else {
-        form.setError('root', {
-          type: 'manual',
-          message: 'An error occurred. Please try again.',
-        });
-      }
+      form.setError('root', { type: 'manual', message: error.message });
     }
   });
 

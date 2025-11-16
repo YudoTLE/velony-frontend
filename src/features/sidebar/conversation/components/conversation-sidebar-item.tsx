@@ -1,7 +1,6 @@
-import Link from 'next/link';
-import { formatDistanceToNow } from 'date-fns';
-
 import type { Conversation } from '@shared/schemas/conversation.schema';
+import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
 
 interface ConversationSidebarItemProps {
   data: Conversation;

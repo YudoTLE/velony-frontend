@@ -31,6 +31,9 @@
       "@conversation": ["src/features/conversation/index.ts"],
       "@message/*": ["src/features/message/*"],
       "@message": ["src/features/message/index.ts"],
+      "@profile/*": ["src/features/profile/*"],
+      "@profile": ["src/features/profile/index.ts"],
+      "@profile-sidebar/*": ["src/features/profile-sidebar/*"],
       "@sidebar/*": ["src/features/sidebar/*"],
     }
   },

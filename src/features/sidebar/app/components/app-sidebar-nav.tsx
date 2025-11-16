@@ -1,10 +1,5 @@
 'use client';
 
-import * as React from 'react';
-
-import { AppSidebarNavItem } from './app-sidebar-nav-item';
-import { navMain, navFooter } from './app-sidebar-nav-data';
-
 import {
   SidebarContent,
   SidebarFooter,
@@ -12,6 +7,10 @@ import {
   SidebarGroupContent,
   SidebarMenu,
 } from '@shared/components/ui/sidebar';
+import * as React from 'react';
+
+import { navMain, navFooter } from './app-sidebar-nav-data';
+import { AppSidebarNavItem } from './app-sidebar-nav-item';
 
 export const AppSidebarNav = () => {
   return (

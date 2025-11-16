@@ -1,2 +1,15 @@
 export { useUpdateUserAvatarMutation } from './mutations/use-update-user-avatar-mutation';
 export { useUpdateUserEmail } from './hooks/use-update-user-email';
+export { useUpdateUserName } from './hooks/use-update-user-name';
+export { useUpdateUserUsername } from './hooks/use-update-user-username';
+export { useUpdateUserPassword } from './hooks/use-update-user-password';
+export { useUsersMeQuery } from './queries/use-users-me-query';
+export { updateUserUsernameRequestSchema } from './schemas/update-user-username-request.schema';
+export { updateUserNameRequestSchema } from './schemas/update-user-name-request.schema';
+export { updateUserEmailStartRequestSchema } from './schemas/update-user-email-start-request.schema';
+export { updateUserEmailConfirmRequestSchema } from './schemas/update-user-email-confirm-request.schema';
+export type { UpdateUserNameRequest } from './types/update-user-name-request';
+export type { UpdateUserUsernameRequest } from './types/update-user-username-request';
+export type { UpdateUserEmailStartRequest } from './types/update-user-email-start-request';
+export type { UpdateUserEmailConfirmRequest } from './types/update-user-email-confirm-request';
+export { userService } from './services/user.service';

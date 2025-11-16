@@ -1,12 +1,12 @@
-import { MessageSquareMore, Bot, Cpu, Settings } from 'lucide-react';
-
-import { ProfileSidebar } from '../../profile/components/profile-sidebar';
-
-import { SidebarItem } from '@/features/sidebar/app/types/sidebar-item';
 import { UserIconSelf } from '@shared/components/icon/user-icon';
-import { ConversationSidebar } from '@/features/sidebar/conversation/components/conversation-sidebar';
 import { Conversation } from '@shared/schemas/conversation.schema';
 import { Message } from '@shared/schemas/message.schema';
+import { MessageSquareMore, Bot, Cpu, Settings } from 'lucide-react';
+
+import { ProfileSidebar } from '../../../profile-sidebar/components/profile-sidebar';
+
+import { SidebarItem } from '@/features/sidebar/app/types/sidebar-item';
+import { ConversationSidebar } from '@/features/sidebar/conversation/components/conversation-sidebar';
 
 // Mock data - move this to appropriate data fetching layer later
 const message: Message = {
@@ -39,8 +39,8 @@ export const navMain: SidebarItem[] = [
     renderContent: () => <ConversationSidebar list={conversationList} />,
   },
   {
-    id: 'agents',
-    title: 'Agents',
+    id: 'characters',
+    title: 'Characters',
     icon: Bot,
   },
   {
@@ -51,11 +51,6 @@ export const navMain: SidebarItem[] = [
 ];
 
 export const navFooter: SidebarItem[] = [
-  {
-    id: 'settings',
-    title: 'Settings',
-    icon: Settings,
-  },
   {
     id: 'profiles',
     title: 'Profiles',

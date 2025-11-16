@@ -19,14 +19,12 @@ export const useOnboardingEmailForm = () => {
     isConfirming,
   } = useUpdateUserEmail();
 
-  const handleUpdateStart = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
+  const handleUpdateStart = startForm.handleSubmit(async () => {
     const ok = await handleStart();
     if (!ok) return;
 
     setIsStarted(true);
-  };
+  });
 
   const handleUpdateConfirm = async () => {
     const ok = await handleConfirm();

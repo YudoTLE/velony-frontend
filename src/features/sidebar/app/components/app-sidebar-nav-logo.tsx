@@ -1,14 +1,13 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-
 import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@shared/components/ui/sidebar';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const AppSidebarNavLogo = () => {
   return (

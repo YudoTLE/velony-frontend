@@ -1,12 +1,11 @@
-import React from 'react';
-
-import { useAppSidebarContext } from './app-sidebar-provider';
-
 import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@shared/components/ui/sidebar';
-import { SidebarItem } from '@/features/sidebar/app/types/sidebar-item';
+import React from 'react';
+
+import { useAppSidebarContext } from './app-sidebar-provider';
+import { SidebarItem } from '../types/sidebar-item';
 
 interface AppSidebarNavItemProps {
   data: SidebarItem;

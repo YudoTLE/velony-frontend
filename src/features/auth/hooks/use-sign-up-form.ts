@@ -6,12 +6,16 @@ import { useForm } from 'react-hook-form';
 
 import { useSignUpMutation } from '../mutations/use-sign-up-mutation';
 import { signUpRequestSchema } from '../schemas/sign-up-request.schema';
+import { SignUpRequest } from '../types/sign-up-request';
 
 export const useSignUpForm = () => {
   const router = useRouter();
   const [isSubmitTransitioning, startSubmitTransition] = useTransition();
 
-  const form = useForm({ resolver: zodResolver(signUpRequestSchema) });
+  const form = useForm({
+    resolver: zodResolver(signUpRequestSchema),
+    defaultValues: signUpRequestSchema.parse({}),
+  });
 
   const signUp = useSignUpMutation();
 
@@ -23,20 +27,17 @@ export const useSignUpForm = () => {
     } catch (err) {
       const error = errorSchema.parse(err);
 
-      if (error.status === 409) {
-        form.setError('username', {
-          type: 'manual',
-          message: 'Username already exists',
-        });
-      } else if (error.status === 400) {
-        form.setError('root', {
-          type: 'manual',
-          message: 'Invalid registration data. Please check your inputs.',
-        });
-      } else {
-        form.setError('root', {
-          type: 'manual',
-          message: 'An error occurred. Please try again.',
+      if (error.statusCode === 409)
+        form.setError('username', { type: 'server', message: error.message });
+      else form.setError('root', { type: 'server', message: error.message });
+      if (error.errors) {
+        Object.entries(error.errors).forEach(([key, messages]) => {
+          if (key in form.getValues()) {
+            form.setError(key as keyof SignUpRequest, {
+              type: 'server',
+              message: messages.join(', '),
+            });
+          }
         });
       }
     }
