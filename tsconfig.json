@@ -36,7 +36,8 @@
       "@profile-sidebar/*": ["src/features/profile-sidebar/*"],
       "@conversation-sidebar/*": ["src/features/conversation-sidebar/*"],
       "@conversation-sidebar": ["src/features/conversation-sidebar/index.ts"],
-      "@sidebar/*": ["src/features/sidebar/*"],
+      "@app-sidebar/*": ["src/features/app-sidebar/*"],
+      "@app-sidebar": ["src/features/app-sidebar/index.ts"],
     }
   },
   "include": [

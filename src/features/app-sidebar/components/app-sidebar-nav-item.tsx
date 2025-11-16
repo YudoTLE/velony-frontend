@@ -1,6 +1,9 @@
+'use client';
+
 import {
   SidebarMenuItem,
   SidebarMenuButton,
+  useSidebar,
 } from '@shared/components/ui/sidebar';
 import React from 'react';
 
@@ -12,15 +15,21 @@ interface AppSidebarNavItemProps {
 }
 
 export const AppSidebarNavItem = ({ data }: AppSidebarNavItemProps) => {
-  const { activeItem, handleActiveItemChange } = useAppSidebarContext();
+  const { activeItem, handleActiveItemChange, isOpen } = useAppSidebarContext();
+  const { setOpen } = useSidebar();
   const Icon = data.icon;
-  const isActive = activeItem.id === data.id;
+  const isActive = isOpen && activeItem?.id === data.id;
+
+  const handleClick = () => {
+    handleActiveItemChange(data.id);
+    setOpen(true);
+  };
 
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         tooltip={{ children: data.title, hidden: false }}
-        onClick={() => handleActiveItemChange(data.id)}
+        onClick={handleClick}
         isActive={isActive}
         className="justify-center"
       >

@@ -1,21 +1,26 @@
+import { AppSidebar, AppSidebarProvider } from '@app-sidebar';
 import { SidebarProvider } from '@shared/components/ui/sidebar';
-import { AppSidebar } from '@sidebar/app/components/app-sidebar';
-import { AppSidebarProvider } from '@sidebar/app/components/app-sidebar-provider';
-import { getActiveSidebarItem } from '@sidebar/app/lib/get-active-sidebar-item';
+import { cookies } from 'next/headers';
+
+const SIDEBAR_ACTIVE_ITEM_COOKIE = 'sidebar_active_item';
 
 export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialActiveItem = await getActiveSidebarItem();
+  const cookieStore = await cookies();
+  const activeItemCookie = cookieStore.get(SIDEBAR_ACTIVE_ITEM_COOKIE);
+
+  const initialActiveItem = activeItemCookie?.value || '';
 
   return (
     <>
       <SidebarProvider
+        defaultOpen={!!initialActiveItem}
         style={
           {
-            '--sidebar-width': '350px',
+            '--sidebar-width': '400px',
           } as React.CSSProperties
         }
       >

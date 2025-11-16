@@ -1,18 +1,19 @@
 'use client';
 
+import { convertTime } from '@shared/lib/time';
 import React from 'react';
 
-import { navFooter, navMain } from './app-sidebar-nav-data';
-import {
-  SIDEBAR_ACTIVE_ITEM_COOKIE,
-  SIDEBAR_ACTIVE_ITEM_MAX_AGE,
-  DEFAULT_ACTIVE_ITEM,
-} from '../lib/app-sidebar-config';
+import { navFooter, navMain } from './app-sidebar-nav';
 import { SidebarItem } from '../types/sidebar-item';
 
+const SIDEBAR_ACTIVE_ITEM_COOKIE = 'sidebar_active_item';
+const SIDEBAR_ACTIVE_ITEM_MAX_AGE = convertTime('7d');
+
 interface AppSidebarContextType {
-  activeItem: SidebarItem;
+  activeItem: SidebarItem | null;
   handleActiveItemChange: (id: string) => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 const AppSidebarContext = React.createContext<
@@ -38,22 +39,37 @@ interface AppSidebarProviderProps {
 
 export const AppSidebarProvider = ({
   children,
-  initialActiveItem = DEFAULT_ACTIVE_ITEM,
+  initialActiveItem = '',
 }: AppSidebarProviderProps) => {
   const [activeItemId, setActiveItemId] =
     React.useState<string>(initialActiveItem);
 
-  const activeItem = [...navMain, ...navFooter].find(
-    (nav) => nav.id === activeItemId,
-  )!;
+  const activeItem =
+    [...navMain, ...navFooter].find((nav) => nav.id === activeItemId) || null;
+
+  const isOpen = !!activeItem;
 
   const handleActiveItemChange = (id: string) => {
     setActiveItemId(id);
     document.cookie = `${SIDEBAR_ACTIVE_ITEM_COOKIE}=${id}; path=/; max-age=${SIDEBAR_ACTIVE_ITEM_MAX_AGE}`;
   };
 
+  const setIsOpen = (open: boolean) => {
+    if (!open) {
+      setActiveItemId('');
+      document.cookie = `${SIDEBAR_ACTIVE_ITEM_COOKIE}=; path=/; max-age=0`;
+    }
+  };
+
   return (
-    <AppSidebarContext.Provider value={{ activeItem, handleActiveItemChange }}>
+    <AppSidebarContext.Provider
+      value={{
+        activeItem,
+        handleActiveItemChange,
+        isOpen,
+        setIsOpen,
+      }}
+    >
       {children}
     </AppSidebarContext.Provider>
   );
