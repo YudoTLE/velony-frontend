@@ -1,11 +1,12 @@
 'use client';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+} from '@shared/components/ui/accordion';
 import { Alert, AlertDescription } from '@shared/components/ui/alert';
 import { Button } from '@shared/components/ui/button';
-import {
-  Collapsible,
-  CollapsibleContent,
-} from '@shared/components/ui/collapsible';
 import {
   Form,
   FormControl,
@@ -16,7 +17,7 @@ import {
 import { Input } from '@shared/components/ui/input';
 import { Spinner } from '@shared/components/ui/spinner';
 import { UpdateUserNameRequest } from '@user';
-import { Pencil, X, AlertCircle } from 'lucide-react';
+import { AlertCircle, Pencil, X } from 'lucide-react';
 
 import { useProfileNameForm } from '../hooks/use-profile-name-form';
 
@@ -36,68 +37,73 @@ export const ProfileNameForm = ({ initialValues }: ProfileNameProps) => {
 
   return (
     <div>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium leading-none">Name</span>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium leading-none">Name</span>
 
-          {isUpdating ? (
-            <Button variant="ghost" className="size-6" disabled>
-              <Spinner className="size-3" />
-            </Button>
-          ) : isEditing ? (
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              <X className="size-3" />
-            </Button>
-          ) : (
-            <Button
-              onClick={handleEdit}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              <Pencil className="size-3" />
-            </Button>
-          )}
-        </div>
-
-        {form.formState.errors.root && (
-          <Alert variant="destructive">
-            <AlertCircle className="size-4" />
-            <AlertDescription>
-              {form.formState.errors.root.message}
-            </AlertDescription>
-          </Alert>
+        {isUpdating ? (
+          <Button variant="ghost" className="size-6" disabled>
+            <Spinner className="size-3" />
+          </Button>
+        ) : isEditing ? (
+          <Button
+            onClick={handleCancel}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            <X className="size-3" />
+          </Button>
+        ) : (
+          <Button
+            onClick={handleEdit}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            <Pencil className="size-3" />
+          </Button>
         )}
+      </div>
 
-        <Form {...form}>
-          <form onSubmit={handleUpdate}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="Your name"
-                      disabled={!isEditing || isUpdating}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+      {form.formState.errors.root && (
+        <Alert variant="destructive">
+          <AlertCircle className="size-4" />
+          <AlertDescription>
+            {form.formState.errors.root.message}
+          </AlertDescription>
+        </Alert>
+      )}
 
-        <Collapsible open={isEditing}>
-          <CollapsibleContent className="flex gap-2">
+      <Form {...form}>
+        <form onSubmit={handleUpdate}>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Your name"
+                    variant="underline"
+                    disabled={!isEditing || isUpdating}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+
+      <Accordion
+        type="single"
+        collapsible
+        value={isEditing ? 'buttons' : undefined}
+      >
+        <AccordionItem value="buttons">
+          <AccordionContent className="flex gap-2 mt-2 pb-0">
             <Button
               type="button"
               size="sm"
@@ -115,9 +121,9 @@ export const ProfileNameForm = ({ initialValues }: ProfileNameProps) => {
             >
               Cancel
             </Button>
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

@@ -1,11 +1,12 @@
 'use client';
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+} from '@shared/components/ui/accordion';
 import { Alert, AlertDescription } from '@shared/components/ui/alert';
 import { Button } from '@shared/components/ui/button';
-import {
-  Collapsible,
-  CollapsibleContent,
-} from '@shared/components/ui/collapsible';
 import {
   Form,
   FormControl,
@@ -15,7 +16,7 @@ import {
 } from '@shared/components/ui/form';
 import { Input } from '@shared/components/ui/input';
 import { Spinner } from '@shared/components/ui/spinner';
-import { Pencil, X, Plus, AlertCircle } from 'lucide-react';
+import { AlertCircle, Pencil, Plus, X } from 'lucide-react';
 
 import { useProfileEmailForm } from '../hooks/use-profile-email-form';
 
@@ -40,76 +41,81 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
 
   return (
     <div>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium leading-none">Email</span>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium leading-none">Email</span>
 
-          {isConfirming ? (
-            <Button variant="ghost" className="size-6" disabled>
-              <Spinner className="size-3" />
-            </Button>
-          ) : isEditing ? (
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              <X className="size-3" />
-            </Button>
-          ) : (
-            <Button
-              onClick={handleEdit}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              {hasNoEmail ? (
-                <Plus className="size-3" />
-              ) : (
-                <Pencil className="size-3" />
-              )}
-            </Button>
-          )}
-        </div>
-
-        {startForm.formState.errors.root && (
-          <Alert variant="destructive">
-            <AlertCircle className="size-4" />
-            <AlertDescription>
-              {startForm.formState.errors.root.message}
-            </AlertDescription>
-          </Alert>
+        {isConfirming ? (
+          <Button variant="ghost" className="size-6" disabled>
+            <Spinner className="size-3" />
+          </Button>
+        ) : isEditing ? (
+          <Button
+            onClick={handleCancel}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            <X className="size-3" />
+          </Button>
+        ) : (
+          <Button
+            onClick={handleEdit}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            {hasNoEmail ? (
+              <Plus className="size-3" />
+            ) : (
+              <Pencil className="size-3" />
+            )}
+          </Button>
         )}
+      </div>
 
-        <Form {...startForm}>
-          <form onSubmit={handleStart}>
-            <FormField
-              control={startForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder={
-                        hasNoEmail && !isEditing
-                          ? '-- no email --'
-                          : 'new_email@example.com'
-                      }
-                      disabled={!isEditing || isStarting || isStarted}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+      {startForm.formState.errors.root && (
+        <Alert variant="destructive">
+          <AlertCircle className="size-4" />
+          <AlertDescription>
+            {startForm.formState.errors.root.message}
+          </AlertDescription>
+        </Alert>
+      )}
 
-        <Collapsible open={isStarted}>
-          <CollapsibleContent className="space-y-2">
+      <Form {...startForm}>
+        <form onSubmit={handleStart}>
+          <FormField
+            control={startForm.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder={
+                      hasNoEmail && !isEditing
+                        ? '-- no email --'
+                        : 'new_email@example.com'
+                    }
+                    variant="underline"
+                    disabled={!isEditing || isStarting || isStarted}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+
+      <Accordion
+        type="single"
+        collapsible
+        value={isStarted ? 'otp' : undefined}
+      >
+        <AccordionItem value="otp">
+          <AccordionContent className="pb-0 mt-2">
             <Form {...confirmForm}>
               <form onSubmit={handleConfirm}>
                 <FormField
@@ -122,6 +128,7 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
                           type="text"
                           placeholder="Enter 6-digit code"
                           maxLength={6}
+                          variant="underline"
                           disabled={isConfirming}
                           {...field}
                         />
@@ -132,11 +139,17 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
                 />
               </form>
             </Form>
-          </CollapsibleContent>
-        </Collapsible>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
-        <Collapsible open={isEditing}>
-          <CollapsibleContent className="flex gap-2">
+      <Accordion
+        type="single"
+        collapsible
+        value={isEditing ? 'buttons' : undefined}
+      >
+        <AccordionItem value="buttons">
+          <AccordionContent className="flex gap-2 mt-2 pb-0">
             {isStarted ? (
               <>
                 <Button
@@ -178,9 +191,9 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
                 </Button>
               </>
             )}
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 'use client';
 
-import { Alert, AlertDescription } from '@shared/components/ui/alert';
-import { Button } from '@shared/components/ui/button';
 import {
-  Collapsible,
-  CollapsibleContent,
-} from '@shared/components/ui/collapsible';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+} from '@shared/components/ui/accordion';
+import { Button } from '@shared/components/ui/button';
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
 } from '@shared/components/ui/form';
 import { Input } from '@shared/components/ui/input';
 import { Spinner } from '@shared/components/ui/spinner';
-import { Pencil, X, AlertCircle } from 'lucide-react';
+import { Pencil, X } from 'lucide-react';
 
 import { useProfilePasswordForm } from '../hooks/use-profile-password-form';
 
@@ -31,75 +31,74 @@ export const ProfilePasswordForm = () => {
 
   return (
     <div>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium leading-none">Password</span>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium leading-none">Password</span>
 
-          {isUpdating ? (
-            <Button variant="ghost" className="size-6" disabled>
-              <Spinner className="size-3" />
-            </Button>
-          ) : isEditing ? (
-            <Button
-              onClick={handleCancel}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              <X className="size-3" />
-            </Button>
-          ) : (
-            <Button
-              onClick={handleEdit}
-              type="button"
-              variant="ghost"
-              className="size-6"
-            >
-              <Pencil className="size-3" />
-            </Button>
-          )}
-        </div>
-
-        {form.formState.errors.root && (
-          <Alert variant="destructive">
-            <AlertCircle className="size-4" />
-            <AlertDescription>
-              {form.formState.errors.root.message}
-            </AlertDescription>
-          </Alert>
+        {isUpdating ? (
+          <Button variant="ghost" className="size-6" disabled>
+            <Spinner className="size-3" />
+          </Button>
+        ) : isEditing ? (
+          <Button
+            onClick={handleCancel}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            <X className="size-3" />
+          </Button>
+        ) : (
+          <Button
+            onClick={handleEdit}
+            type="button"
+            variant="ghost"
+            className="size-6"
+          >
+            <Pencil className="size-3" />
+          </Button>
         )}
+      </div>
 
-        <Collapsible open={!isEditing}>
-          <CollapsibleContent>
-            <div className="relative">
-              <Input type="password" value="secretpassword" disabled />
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+      <Form {...form}>
+        <form onSubmit={handleUpdate}>
+          <div className="space-y-2">
+            {isEditing ? (
+              <FormField
+                control={form.control}
+                name="oldPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Old Password"
+                        variant="underline"
+                        disabled={isUpdating}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : (
+              <div className="relative">
+                <Input
+                  type="password"
+                  value="secretpassword"
+                  variant="underline"
+                  disabled
+                />
+              </div>
+            )}
 
-        <Collapsible open={isEditing}>
-          <CollapsibleContent className="space-y-2">
-            <Form {...form}>
-              <form onSubmit={handleUpdate}>
-                <div className="space-y-2">
-                  <FormField
-                    control={form.control}
-                    name="oldPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="Old Password"
-                            disabled={isUpdating || !isEditing}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
+            <Accordion
+              type="single"
+              collapsible
+              value={isEditing ? 'new-password' : undefined}
+            >
+              <AccordionItem value="new-password">
+                <AccordionContent className="pb-0">
                   <FormField
                     control={form.control}
                     name="newPassword"
@@ -109,7 +108,8 @@ export const ProfilePasswordForm = () => {
                           <Input
                             type="password"
                             placeholder="New Password"
-                            disabled={isUpdating || !isEditing}
+                            variant="underline"
+                            disabled={isUpdating}
                             {...field}
                           />
                         </FormControl>
@@ -117,14 +117,20 @@ export const ProfilePasswordForm = () => {
                       </FormItem>
                     )}
                   />
-                </div>
-              </form>
-            </Form>
-          </CollapsibleContent>
-        </Collapsible>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </form>
+      </Form>
 
-        <Collapsible open={isEditing}>
-          <CollapsibleContent className="flex gap-2">
+      <Accordion
+        type="single"
+        collapsible
+        value={isEditing ? 'buttons' : undefined}
+      >
+        <AccordionItem value="buttons">
+          <AccordionContent className="flex gap-2 mt-2 pb-0">
             <Button
               type="button"
               size="sm"
@@ -142,9 +148,9 @@ export const ProfilePasswordForm = () => {
             >
               Cancel
             </Button>
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };
