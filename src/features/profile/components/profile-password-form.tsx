@@ -32,7 +32,9 @@ export const ProfilePasswordForm = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium leading-none">Password</span>
+        <span className="text-sm font-medium leading-none text-muted-foreground">
+          Password
+        </span>
 
         {isUpdating ? (
           <Button variant="ghost" className="size-6" disabled>
@@ -88,6 +90,7 @@ export const ProfilePasswordForm = () => {
                   value="secretpassword"
                   variant="underline"
                   disabled
+                  className="disabled:opacity-100"
                 />
               </div>
             )}

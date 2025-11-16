@@ -42,7 +42,9 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium leading-none">Email</span>
+        <span className="text-sm font-medium leading-none text-muted-foreground">
+          Email
+        </span>
 
         {isConfirming ? (
           <Button variant="ghost" className="size-6" disabled>
@@ -99,6 +101,7 @@ export const ProfileEmailForm = ({ initialValues }: ProfileEmailProps) => {
                     }
                     variant="underline"
                     disabled={!isEditing || isStarting || isStarted}
+                    className="disabled:opacity-100"
                     {...field}
                   />
                 </FormControl>

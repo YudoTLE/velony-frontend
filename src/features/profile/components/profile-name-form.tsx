@@ -38,7 +38,9 @@ export const ProfileNameForm = ({ initialValues }: ProfileNameProps) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium leading-none">Name</span>
+        <span className="text-sm font-medium leading-none text-muted-foreground">
+          Name
+        </span>
 
         {isUpdating ? (
           <Button variant="ghost" className="size-6" disabled>
@@ -87,6 +89,7 @@ export const ProfileNameForm = ({ initialValues }: ProfileNameProps) => {
                     placeholder="Your name"
                     variant="underline"
                     disabled={!isEditing || isUpdating}
+                    className="disabled:opacity-100"
                     {...field}
                   />
                 </FormControl>
