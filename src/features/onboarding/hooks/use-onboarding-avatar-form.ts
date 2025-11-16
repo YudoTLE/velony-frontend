@@ -15,7 +15,7 @@ export const useOnboardingAvatarForm = () => {
 
     if (!(await handleUpdate())) return;
 
-    startUpdateTransition(async () => router.push('/'));
+    startUpdateTransition(async () => router.push('/onboarding/email'));
   };
 
   const handleSkip = () => {

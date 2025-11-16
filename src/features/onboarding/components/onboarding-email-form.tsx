@@ -16,7 +16,7 @@ import React from 'react';
 
 import { useOnboardingEmailForm } from '../hooks/use-onboarding-email-form';
 
-export function OnboardingSetEmailForm({
+export function OnboardingEmailForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {

@@ -1,4 +1,4 @@
-import { OnboardingSetEmailForm } from '@/features/onboarding/components/onboarding-set-email-form';
+import { OnboardingEmailForm } from '@/features/onboarding/components/onboarding-email-form';
 
 export default function OnboardingSetEmailPage() {
   return (
@@ -14,7 +14,7 @@ export default function OnboardingSetEmailPage() {
         </div>
 
         {/* Form */}
-        <OnboardingSetEmailForm />
+        <OnboardingEmailForm />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 
 import { useOnboardingAvatarForm } from '../hooks/use-onboarding-avatar-form';
 
-export function OnboardingSetAvatarForm({
+export function OnboardingAvatarForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {

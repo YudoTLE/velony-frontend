@@ -1,4 +1,4 @@
-import { OnboardingSetAvatarForm } from '@/features/onboarding/components/onboarding-set-avatar-form';
+import { OnboardingAvatarForm } from '@/features/onboarding/components/onboarding-avatar-form';
 
 export default function OnboardingSetAvatarPage() {
   return (
@@ -13,7 +13,7 @@ export default function OnboardingSetAvatarPage() {
         </div>
 
         {/* Form */}
-        <OnboardingSetAvatarForm />
+        <OnboardingAvatarForm />
       </div>
     </div>
   );
