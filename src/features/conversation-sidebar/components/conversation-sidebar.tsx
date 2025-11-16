@@ -5,7 +5,7 @@ import { ConversationSidebarNav } from './conversation-sidebar-nav';
 
 export const ConversationSidebar = () => {
   return (
-    <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+    <Sidebar collapsible="none" className="hidden flex-1 flex-col md:flex">
       <ConversationSidebarHeader />
 
       <ConversationSidebarNav />
