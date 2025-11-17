@@ -8,7 +8,7 @@ import type { AppSidebarItem } from '../types/app-sidebar-item';
 
 export const APP_SIDEBAR_ACTIVE_COOKIE = 'sidebar_active_item';
 
-export const APP_SIDEBAR_ACTIVE_MAX_AGE = convertTime('7d');
+export const APP_SIDEBAR_ACTIVE_MAX_AGE = convertTime('7d').seconds;
 
 export const APP_SIDEBAR_NAV_MAIN: AppSidebarItem[] = [
   {
