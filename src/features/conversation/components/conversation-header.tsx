@@ -1,4 +1,5 @@
 import { useAppSidebarContext } from '@app-sidebar';
+import { ConversationDetailSidebar } from '@conversation-detail-sidebar';
 
 import { ConversationThumbnail } from './conversation-thumbnail';
 import { ConversationDetail } from '../types/conversation-detail';
@@ -12,7 +13,7 @@ export const ConversationHeader = ({ data }: ConversationHeaderProps) => {
 
   return (
     <button
-      onClick={() => openDetail(null)}
+      onClick={() => openDetail(<ConversationDetailSidebar data={data} />)}
       className="bg-background border-b px-4 py-2 flex items-center gap-3 cursor-pointer"
     >
       <ConversationThumbnail data={data} />
