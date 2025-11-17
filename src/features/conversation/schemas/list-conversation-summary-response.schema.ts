@@ -18,6 +18,9 @@ export const listConversationSummarySchema = z.array(
     })
     .transform((data) => ({
       ...data,
-      url: `${process.env.NEXT_PUBLIC_S3_BASE_URL}/c/${data.id}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/c/${data.id}`,
+      thumbnailUrl: data.thumbnailUrl
+        ? `${process.env.NEXT_PUBLIC_S3_BASE_URL}/${data.thumbnailUrl}`
+        : null,
     })),
 );
