@@ -1,10 +1,6 @@
-import type { ConversationSummary } from '@conversation';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@shared/components/ui/avatar';
+import { useAppSidebarContext } from '@app-sidebar';
 
+import { ConversationThumbnail } from './conversation-thumbnail';
 import { ConversationDetail } from '../types/conversation-detail';
 
 interface ConversationHeaderProps {
@@ -12,13 +8,16 @@ interface ConversationHeaderProps {
 }
 
 export const ConversationHeader = ({ data }: ConversationHeaderProps) => {
+  const { openDetail } = useAppSidebarContext();
+
   return (
-    <div className="bg-background border-b px-4 py-2 flex items-center gap-3">
-      <Avatar className="size-9 shrink-0">
-        <AvatarImage src={data.thumbnailUrl || undefined} alt={data.title} />
-        <AvatarFallback>{data.title.slice(0, 2).toUpperCase()}</AvatarFallback>
-      </Avatar>
-      <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+    <button
+      onClick={() => openDetail(null)}
+      className="bg-background border-b px-4 py-2 flex items-center gap-3 cursor-pointer"
+    >
+      <ConversationThumbnail data={data} />
+
+      <div className="flex flex-col gap-0.5 flex-1 min-w-0 text-left">
         <span className="text-foreground truncate font-medium text-sm">
           {data.title}
         </span>
@@ -26,6 +25,6 @@ export const ConversationHeader = ({ data }: ConversationHeaderProps) => {
           {data.users.map((u) => u.name || 'VelonY User').join(', ')}
         </span>
       </div>
-    </div>
+    </button>
   );
 };

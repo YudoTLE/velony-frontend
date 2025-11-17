@@ -1,19 +1,30 @@
 'use client';
 
-import { convertTime } from '@shared/lib/time';
+import { SidebarProvider } from '@shared/components/ui/sidebar';
 import React from 'react';
 
-import { navFooter, navMain } from './app-sidebar-nav';
-import { SidebarItem } from '../types/sidebar-item';
-
-const SIDEBAR_ACTIVE_ITEM_COOKIE = 'sidebar_active_item';
-const SIDEBAR_ACTIVE_ITEM_MAX_AGE = convertTime('7d');
+import {
+  APP_SIDEBAR_ACTIVE_COOKIE,
+  APP_SIDEBAR_ACTIVE_MAX_AGE,
+  APP_SIDEBAR_NAV_MAIN,
+  APP_SIDEBAR_NAV_FOOTER,
+} from '../lib/app-sidebar-config';
+import { AppSidebarItem } from '../types/app-sidebar-item';
 
 interface AppSidebarContextType {
-  activeItem: SidebarItem | null;
-  handleActiveItemChange: (id: string) => void;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  active: AppSidebarItem | null;
+
+  isDetailOpen: boolean;
+  detail: React.ReactNode | null;
+
+  open: () => void;
+  close: () => void;
+  setActive: (id: string) => void;
+
+  openDetail: (content: React.ReactNode) => void;
+  closeDetail: () => void;
+  setDetail: (content: React.ReactNode | null) => void;
 }
 
 const AppSidebarContext = React.createContext<
@@ -21,15 +32,10 @@ const AppSidebarContext = React.createContext<
 >(undefined);
 
 export const useAppSidebarContext = () => {
-  const context = React.useContext(AppSidebarContext);
-
-  if (context === undefined) {
-    throw new Error(
-      'useAppSidebarContext must be used within AppSidebarProvider',
-    );
-  }
-
-  return context;
+  const ctx = React.useContext(AppSidebarContext);
+  if (!ctx)
+    throw new Error('useAppSidebarContext must be used within provider');
+  return ctx;
 };
 
 interface AppSidebarProviderProps {
@@ -41,36 +47,74 @@ export const AppSidebarProvider = ({
   children,
   initialActiveItem = '',
 }: AppSidebarProviderProps) => {
-  const [activeItemId, setActiveItemId] =
-    React.useState<string>(initialActiveItem);
+  const items = [...APP_SIDEBAR_NAV_MAIN, ...APP_SIDEBAR_NAV_FOOTER];
 
-  const activeItem =
-    [...navMain, ...navFooter].find((nav) => nav.id === activeItemId) || null;
+  // MAIN PANEL STATE (left)
+  const [activeId, setActiveId] = React.useState(initialActiveItem);
+  const active = items.find((n) => n.id === activeId) || null;
+  const isOpen = !!active;
 
-  const isOpen = !!activeItem;
-
-  const handleActiveItemChange = (id: string) => {
-    setActiveItemId(id);
-    document.cookie = `${SIDEBAR_ACTIVE_ITEM_COOKIE}=${id}; path=/; max-age=${SIDEBAR_ACTIVE_ITEM_MAX_AGE}`;
+  const setActive = (id: string) => {
+    setActiveId(id);
+    document.cookie = `${APP_SIDEBAR_ACTIVE_COOKIE}=${id}; path=/; max-age=${APP_SIDEBAR_ACTIVE_MAX_AGE}`;
   };
 
-  const setIsOpen = (open: boolean) => {
-    if (!open) {
-      setActiveItemId('');
-      document.cookie = `${SIDEBAR_ACTIVE_ITEM_COOKIE}=; path=/; max-age=0`;
-    }
+  const open = () => {
+    if (!active) setActive(items[0]?.id || '');
+  };
+
+  const close = () => {
+    setActiveId('');
+    document.cookie = `${APP_SIDEBAR_ACTIVE_COOKIE}=; path=/; max-age=0`;
+  };
+
+  // DETAIL PANEL STATE (right)
+  const [isDetailOpen, setIsDetailOpen] = React.useState(false);
+  const [detail, setDetailState] = React.useState<React.ReactNode | null>(null);
+
+  const openDetail = (content: React.ReactNode) => {
+    setDetailState(content);
+    setIsDetailOpen(true);
+  };
+
+  const closeDetail = () => {
+    setIsDetailOpen(false);
+    setDetailState(null);
+  };
+
+  const setDetail = (content: React.ReactNode | null) => {
+    setDetailState(content);
   };
 
   return (
     <AppSidebarContext.Provider
       value={{
-        activeItem,
-        handleActiveItemChange,
         isOpen,
-        setIsOpen,
+        active,
+
+        isDetailOpen,
+        detail,
+
+        open,
+        close,
+        setActive,
+
+        openDetail,
+        closeDetail,
+        setDetail,
       }}
     >
-      {children}
+      <SidebarProvider
+        openLeft={isOpen}
+        openRight={isDetailOpen}
+        style={
+          {
+            '--sidebar-width': '400px',
+          } as React.CSSProperties
+        }
+      >
+        {children}
+      </SidebarProvider>
     </AppSidebarContext.Provider>
   );
 };

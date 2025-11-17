@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface SidebarItem {
+export interface NavSidebarItem {
   id: string;
   title: string;
   icon: React.ElementType;

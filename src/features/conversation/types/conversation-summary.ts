@@ -3,11 +3,11 @@ export type ConversationSummary = {
   title: string;
   thumbnailUrl: string | null;
   url: string;
-  createdAt: Date;
   lastMessage: {
     id: string;
     content: string;
-    senderName: string | null;
+    userName: string | null;
+    createdAt: Date;
     updatedAt: Date;
   } | null;
 };

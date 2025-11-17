@@ -6,12 +6,12 @@ export const listConversationSummarySchema = z.array(
       id: z.uuid(),
       title: z.string(),
       thumbnailUrl: z.url().nullable(),
-      createdAt: z.coerce.date(),
       lastMessage: z
         .object({
           id: z.uuid(),
           content: z.string(),
-          senderName: z.string().nullable(),
+          userName: z.string().nullable(),
+          createdAt: z.coerce.date(),
           updatedAt: z.coerce.date(),
         })
         .nullable(),

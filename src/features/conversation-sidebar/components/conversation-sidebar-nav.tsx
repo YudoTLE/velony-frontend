@@ -10,7 +10,7 @@ export const ConversationSidebarNav = () => {
   return (
     <SidebarContent className="gap-0 p-0 flex-1">
       <ScrollArea className="h-full">
-        <SidebarGroup className="px-0">
+        <SidebarGroup className="p-0 pb-10">
           {list.map((conversation) => (
             <ConversationSidebarNavItem
               key={conversation.id}

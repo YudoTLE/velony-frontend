@@ -10,7 +10,10 @@ import { ProfileSidebarNav } from './profile-sidebar-nav';
 
 export const ProfileSidebar = () => {
   return (
-    <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+    <Sidebar
+      collapsible="none"
+      className="hidden flex-1 md:flex w-full min-w-0"
+    >
       <ProfileSidebarHeader />
 
       <SidebarContent className="gap-0">

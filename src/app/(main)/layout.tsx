@@ -1,4 +1,8 @@
-import { AppSidebar, AppSidebarProvider } from '@app-sidebar';
+import {
+  AppSidebarLeft,
+  AppSidebarProvider,
+  AppSidebarRight,
+} from '@app-sidebar';
 import { SidebarProvider } from '@shared/components/ui/sidebar';
 import { cookies } from 'next/headers';
 
@@ -15,20 +19,12 @@ export default async function MainLayout({
   const initialActiveItem = activeItemCookie?.value || '';
 
   return (
-    <>
-      <SidebarProvider
-        defaultOpen={!!initialActiveItem}
-        style={
-          {
-            '--sidebar-width': '400px',
-          } as React.CSSProperties
-        }
-      >
-        <AppSidebarProvider initialActiveItem={initialActiveItem}>
-          <AppSidebar />
-          {children}
-        </AppSidebarProvider>
-      </SidebarProvider>
-    </>
+    <SidebarProvider>
+      <AppSidebarProvider initialActiveItem={initialActiveItem}>
+        <AppSidebarLeft />
+        <main className="flex-1">{children}</main>
+        <AppSidebarRight />
+      </AppSidebarProvider>
+    </SidebarProvider>
   );
 }
