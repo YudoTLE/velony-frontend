@@ -1,14 +1,14 @@
+import type { ConversationSummary } from '@conversation';
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@shared/components/ui/avatar';
-import type { Conversation } from '@shared/types/conversation';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 
 interface ConversationSidebarNavItemProps {
-  data: Conversation;
+  data: ConversationSummary;
 }
 
 export const ConversationSidebarNavItem = ({
