@@ -12,7 +12,7 @@ export const ConversationSidebarNavItem = ({
   return (
     <Link
       href={data.url}
-      className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 border-b px-3 py-2 text-sm leading-tight first:border-t text-muted-foreground"
+      className="h-15 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-2 border-b px-3 py-2 text-sm leading-tight first:border-t text-muted-foreground"
     >
       <ConversationThumbnail data={data} />
       <div className="flex flex-col gap-2 flex-1 min-w-0">
