@@ -1,9 +1,4 @@
 import { ConversationThumbnail, type ConversationSummary } from '@conversation';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@shared/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 
