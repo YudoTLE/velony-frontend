@@ -10,14 +10,17 @@ import {
 import { get, set, del } from 'idb-keyval';
 import { ReactNode } from 'react';
 
+import { convertTime } from '@/shared/lib/time';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60,
-      gcTime: 1000 * 60 * 60 * 24,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
+      staleTime: convertTime('1s').milliseconds,
+      gcTime: convertTime('5m').milliseconds,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: true,
+      refetchInterval: false,
     },
   },
 });

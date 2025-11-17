@@ -3,7 +3,8 @@
  * Supports compound inputs like "1h30m15s500ms".
  *
  * @param input - The time string to convert (e.g., "1h30m", "500ms", "2d3h").
- * @returns An object with time converted to different units, or an error message if an invalid unit is used.
+ * @returns An object with time converted to different units.
+ * @throws Error if an invalid unit is used.
  *
  * @example
  * convertTime("1h30m");
@@ -29,16 +30,14 @@
  * //   weeks: 0.0000008267
  * // }
  */
-export function convertTime(input: string):
-  | {
-      seconds: number;
-      milliseconds: number;
-      minutes: number;
-      hours: number;
-      days: number;
-      weeks: number;
-    }
-  | string {
+export function convertTime(input: string): {
+  seconds: number;
+  milliseconds: number;
+  minutes: number;
+  hours: number;
+  days: number;
+  weeks: number;
+} {
   const units: Record<string, number> = {
     ms: 1 / 1000,
     s: 1,
@@ -48,14 +47,14 @@ export function convertTime(input: string):
     w: 604800,
   };
 
-  const regex = /(\d+)(ms|s|m|h|d|w|mo|y)/g;
+  const regex = /(\d+)(ms|s|m|h|d|w)/g;
   let match: RegExpExecArray | null;
   let totalSeconds = 0;
 
   while ((match = regex.exec(input)) !== null) {
     const value = parseInt(match[1]);
     const unit = match[2];
-    if (!(unit in units)) return `Invalid unit: ${unit}`;
+    if (!(unit in units)) throw new Error(`Invalid unit: ${unit}`);
     totalSeconds += value * units[unit];
   }
 
